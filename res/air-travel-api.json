@@ -1,0 +1,332 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Air Travel API",
+    "description": "API for finding and booking flights.",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/airports": {
+      "get": {
+        "summary": "Get a list of airports",
+        "description": "Returns a list of airports from the system.",
+        "operationId": "listAirports",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "description": "Keyword to be used as an optional filter",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of airports",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "A list of airports",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Airport"
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/flights": {
+      "get": {
+        "summary": "Get a list of flights between two airports",
+        "description": "Returns a list of flights from the system.",
+        "operationId": "listFlightsBetweenAirports",
+        "parameters": [
+          {
+            "name": "departure",
+            "in": "query",
+            "description": "Departure airport",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "arrival",
+            "in": "query",
+            "description": "Arrival airport",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "description": "Date of the trip",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of flights",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "A list of flights",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Flight"
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/user/{userId}/bookings": {
+      "get": {
+        "summary": "Gets the bookings for a user",
+        "description": "Returns a list of bookings for a user.",
+        "operationId": "getBookingsForUser",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "User ID to which the bookings are associated",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "efdbb9d1-02c2-4bc3-afb7-6788d8782b1e"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of bookings for the specified user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "A list of bookings",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Booking"
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/bookings": {
+      "post": {
+        "summary": "Creates a flight booking",
+        "description": "Creates a flight booking.",
+        "operationId": "createBooking",
+        "requestBody": {
+          "required": true,
+          "description": "Details of the booking that is to be created",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["fligtId", "class"],
+                "properties": {
+                  "fligthId": {
+                    "type": "string",
+                    "description": "The ID of the flight"
+                  },
+                  "class": {
+                    "type": "string",
+                    "description": "The passenger class"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created booking details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "The details for the booking",
+                  "$ref": "#/components/schemas/Booking"
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Airport": {
+        "description": "An object that describes a airport",
+        "type": "object",
+        "required": ["id", "name", "city", "countryCode"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the airport.",
+            "example": "SFO"
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the airport",
+            "example": "San Francisco International Airport"
+          },
+          "city": {
+            "type": "string",
+            "description": "The city of the airport.",
+            "example": "San Francisco"
+          },
+          "countryCode": {
+            "type": "string",
+            "description": "The ISO country code of the airport.",
+            "example": "US"
+          }
+        }
+      },
+      "Flight": {
+        "description": "An object that describes a flight between two airports",
+        "type": "object",
+        "required": ["departure", "arrival", "departureTime", "arrivalTime"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique identifier for the trip",
+            "example": "efdbb9d1-02c2-4bc3-afb7-6788d8782b1e"
+          },
+          "departure": {
+            "type": "string",
+            "description": "The departure airport ID",
+            "example": "CDG"
+          },
+          "arrival": {
+            "type": "string",
+            "description": "The arrival airport ID",
+            "example": "SFO"
+          },
+          "departureTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The departure time",
+            "example": "2024-12-12T07:47:00.0Z"
+          },
+          "arrivalTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The arrival time",
+            "example": "2024-12-12T10:46:00.0Z"
+          },
+          "flightNumber": {
+            "type": "string",
+            "description": "The flight number",
+            "example": "AF84"
+          }
+        }
+      },
+      "Booking": {
+        "description": "An object that describes a booking",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique identifier for the booking",
+            "example": "efdbb9d1-02c2-4bc3-afb7-6788d8782b1e"
+          },
+          "flight": {
+            "description": "The flight details",
+            "$ref": "#/components/schemas/Flight"
+          },
+          "class": {
+            "type": "string",
+            "description": "The passenger class",
+            "example": "Economy"
+          },
+          "seat": {
+            "type": "string",
+            "description": "The seat number",
+            "example": "12F"
+          }
+        }
+      },
+      "Problem": {
+        "description": "An object that describes a problem",
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "A URI reference that identifies the problem type",
+            "example": "https://example.com/probs/out-of-credit"
+          },
+          "title": {
+            "type": "string",
+            "description": "A short, human-readable summary of the problem type",
+            "example": "You do not have enough credit."
+          },
+          "detail": {
+            "type": "string",
+            "description": "A human-readable explanation specific to this occurrence of the problem",
+            "example": "Your current balance is 30, but that costs 50."
+          },
+          "instance": {
+            "type": "string",
+            "description": "A URI reference that identifies the specific occurrence of the problem",
+            "example": "/account/12345/msgs/abc"
+          },
+          "status": {
+            "type": "integer",
+            "description": "The HTTP status code",
+            "example": 400
+          }
+        }
+      }
+    },
+    "responses": {
+      "InternalServerError": {
+        "description": "Internal Server Error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Problem"
+            },
+            "example": {
+              "type": "https://example.com/errors/internal-server-error",
+              "title": "Internal Server Error",
+              "status": 500,
+              "detail": "An unexpected error occurred."
+            }
+          }
+        }
+      }
+    }
+  }
+}
