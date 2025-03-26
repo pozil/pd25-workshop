@@ -19,7 +19,13 @@
 
 ## ES. External Service action
 
-### ES.1. Create a Named Credentials
+- ES.1. [Create a Named Credential](#es1-create-a-named-credential)
+- ES.2. [Create an External Service](#es2-create-an-external-service)
+- ES.3. [Create an External Service Action](#es3-create-an-external-service-action)
+- ES.4. [Prepare a topic with the action](#es4-prepare-a-topic-with-the-action)
+- ES.5. [Test the action](#es5-test-the-action)
+
+### ES.1. Create a Named Credential
 
 1. From Salesforce Setup, go to **Named Credentials**.
 1. Click the 🔽 down caret next to the **New** button and click **New Legacy**.
@@ -52,7 +58,7 @@
 1. Check all four operations and click **Next**.
 1. Click **Finish**.
 
-### ES.3. Create an API Action
+### ES.3. Create an External Service action
 
 1. From Salesforce Setup, go to **Agent Actions**.
 1. Click **New Agent Action**.
@@ -88,5 +94,8 @@
 
 > [!IMPORTANT]  
 > This steps assume that you have a working Service Agent.
+
+### AA.1. Create a Connected App
+
 
 
