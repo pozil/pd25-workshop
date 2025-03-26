@@ -27,8 +27,8 @@
 
     | Field | Value |
     |:---|:---|
-    | Label | `Air Travel Service` |
-    | Name | `Air_Travel_Service` |
+    | Label | `Air Travel Service Credentials` |
+    | Name | `Air_Travel_Service_Credentials` |
     | URL | `https://a3092717-9181-473a-a6f2-fd80c745960c.mock.pstmn.io` |
 
 1. Uncheck **Generate Authorization Header**.
@@ -44,13 +44,29 @@
     | Field | Value |
     |:---|:---|
     | External Service Name | `AirTravelService` |
-    | Service Schema | Absolute URL |
-    | Select a Named Credential | Air_Travel_Service |
-    | URL | `https://raw.githubusercontent.com/pozil/pd25-workshop/refs/heads/main/res/air-travel-api.json` |
+    | Service Schema | Complete Schema |
+    | Select a Named Credential | Air_Travel_Service_Credentials |
+    | Schema | Copy the value of [this JSON file](https://raw.githubusercontent.com/pozil/pd25-workshop/refs/heads/main/res/air-travel-api.json) |
 
 1. Click **Save & Next**.
+1. Check all four operations and click **Next**.
+1. Click **Finish**.
 
 ### Create an API Action
+
+1. From Salesforce Setup go, to **Agent Actions**.
+1. Click **New Agent Action**.
+1. Fill the form with these details:
+
+    | Field | Value |
+    |:---|:---|
+    | Reference Action Type | API |
+    | Reference Action Category | External Services |
+    | Reference Action | Get Bookings For User |
+
+1. Click **Next**.
+1. For the **Loading Text**, enter `Fetching your bookings`.
+1. For the **200** output paramteer, check **Show in Conversation**.
 
 ### Add the action to an agent
 
