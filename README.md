@@ -98,7 +98,7 @@
 - AA.1. [Create a Connected App](#aa1-create-a-connected-app)
 - AA.2. [Add the Connected App to the agent](#aa2-add-the-connected-app-to-the-agent)
 - AA.3. [Obtain the Connected App credentials](#aa3-obtain-the-connected-app-credentials)
-- AA.4. [Call the Agent API](#aa4-call-the-agent-api-with-postman)
+- AA.4. [Call the Agent API with Postman](#aa4-call-the-agent-api-with-postman)
 
 ### AA.1. Create a Connected App
 
