@@ -88,7 +88,7 @@
 ### ES.5. Test the action
 
 1. In the Conversation Preview panel of Agent Builder, send the following prompt: `My user ID is 12345. Show me my flight bookings.`.
-2. Watch the planner (center panel) as the API is being called. Notice the API input parameters and the External Service Apex-generated reponses.
+2. Watch the planner (center panel) as the API is being called. Notice the API input parameters and the External Service Apex-generated response.
 
 ## AA. Agent API
 
@@ -169,7 +169,7 @@
 1. Select the root of **Agent API** collection and open the **Variables** tab.
 1. Paste the **Consumer Key** and **Consumer Secret** respectively in the `clientId` and `clientSecret` collection variables.
 1. From Setup, go to **My Domain**, and then copy the value of **Current My Domain URL** into the `sfOrgDomain` collection variable.
-1. From Setup, go to **Agents**, select the agent that you want to interact with and and then copy value of the agent ID (a value starting with `0Xx.....`) from the browser URL into the `agentId` collection variable.
+1. From Setup, go to **Agents**, select the agent that you want to interact with and then copy the value of the agent ID (a value starting with `0Xx.....`) from the browser URL into the `agentId` collection variable.
 1. Save your collection variables (press `Cmd + S` or `Ctrl + S`).
 1. Open the **Authorization** tab of the Postman collection and click **Get New Access Token** at the bottom of the screen.
 1. Click **Use Token**.
