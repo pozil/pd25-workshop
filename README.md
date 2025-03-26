@@ -27,9 +27,9 @@
 
 ### ES.1. Create a Named Credential
 
-1. From Salesforce Setup, go to **Named Credentials**.
-1. Click the 🔽 down caret next to the **New** button and click **New Legacy**.
-1. Fill the form with these details:
+1. From Setup, go to **Named Credentials**.
+1. Click the 🔽 dropdown arrow next to the **New** button and click **New Legacy**.
+1. Fill the form with these values:
 
     | Field | Value |
     |:---|:---|
@@ -42,17 +42,17 @@
 
 ### ES.2. Create an External Service
 
-1. From Salesforce Setup, go to **External Services**
+1. From Setup, go to **External Services**
 1. Click **Add an External Services**.
 1. Select **From API Specification** and click **Next**.
-1. Fill the form with these details:
+1. Fill the form with these values:
 
     | Field | Value |
     |:---|:---|
     | External Service Name | `AirTravelService` |
     | Service Schema | Complete Schema |
     | Select a Named Credential | Air_Travel_Service_Credentials |
-    | Schema | Copy the value of [this JSON file](https://raw.githubusercontent.com/pozil/pd25-workshop/refs/heads/main/res/air-travel-api.json) |
+    | Schema | Copy the content of [this JSON file](https://raw.githubusercontent.com/pozil/pd25-workshop/refs/heads/main/res/air-travel-api.json) |
 
 1. Click **Save & Next**.
 1. Check all four operations and click **Next**.
@@ -60,9 +60,9 @@
 
 ### ES.3. Create an External Service action
 
-1. From Salesforce Setup, go to **Agent Actions**.
+1. From Setup, go to **Agent Actions**.
 1. Click **New Agent Action**.
-1. Fill the form with these details:
+1. Fill the form with these values:
 
     | Field | Value |
     |:---|:---|
@@ -77,8 +77,8 @@
 
 ### ES.4. Prepare a topic with the action
 
-1. From Salesforce Setup, go to **Agents**.
-1. Click the 🔽 down caret next on the default agent row and click **Open in Buildery**.
+1. From Setup, go to **Agents**.
+1. Click the 🔽 dropdown arrow next on the default agent row and click **Open in Buildery**.
 1. Click **New** and select **New Topic**
 1. For the topic description, enter `Help users with air travel related enquiries.` and click **Next**.
 1. Leave the default values and click **Next**.
@@ -93,9 +93,77 @@
 ## AA. Agent API
 
 > [!IMPORTANT]  
-> This steps assume that you have a working Service Agent.
+> These steps assume that you have a working Service Agent. The Agent API is **not available** on the default employee agent.
+
+- AA.1. [Create a Connected App](#aa1-create-a-connected-app)
+- AA.2. [Add the Connected App to the agent](#aa2-add-the-connected-app-to-the-agent)
+- AA.3. [Obtain the Connected App credentials](#aa3-obtain-the-connected-app-credentials)
+- AA.4. [Call the Agent API](#aa4-call-the-agent-api)
 
 ### AA.1. Create a Connected App
+
+1. From Setup, go to **App Manager**.
+1. Click **New Connected App**, select **Create a Connected App** and click **Continue**.
+1. Fill the form with these values:
+
+    | Field | Value |
+    |:---|:---|
+    | Connected App Name | `Agent API Integration` |
+    | Contact Email | Your admin email address |
+
+1. Check **Enable OAuth Settings**.
+1. Fill the form with these values:
+
+    | Field | Value |
+    |:---|:---|
+    | Callback URL | `https://login.salesforce.com` |
+    | Selected OAuth Scopes | Access chatbot services (chatbot_api)<br>Access the Salesforce API Platform (sfap_api)<br>Manage user data via APIs (api)<br>Perform requests at any time (refresh_token, offline_access) |
+
+1. Uncheck the following:
+    - Require Proof Key for Code Exchange (PKCE) Extension for Support Authorization Flows
+    - Require Secret for Web Server Flow
+    - Require Secret for Refresh Token Flow
+
+1. Check the following:
+    - Enable Client Credentials Flow
+    - Issue JSON Web Token (JWT)-based access tokens for named users
+
+1. Review this screenshot to verify that you selected the correct settings:
+
+    ![Connected app configuration](https://a.sfdcstatic.com/developer-website/sfdocs/genai/media/agent-api-connected-app.png)
+
+1. Click **Save**.
+1. Click **Manage**.
+1. Click **Edit Policies**.
+1. In the **OAuth Policies** section, set the **Permitted Users** dropdown to Admin approved users are pre-authorized.
+1. In the **Client Credentials Flow** section, set **Run As** to your user.
+1. Check **Issue JSON Web Token (JWT)-based access tokens**.
+1. Click **Save**.
+
+### AA.2. Add the Connected App to the agent
+
+1. From Setup, go to **Agents**.
+1. Click on **Coral Cloud Agent**.
+1. Select the **Connections** tab, and click **Add** from the Connections section.
+1. Fill the form with these values:
+
+    | Field | Value |
+    |:---|:---|
+    | Connection | API |
+    | Integration Name | `Agent API Integration` |
+    | Connected App | Agent API Integration |
+
+1. Click **Save**.
+
+### AA.3. Obtain the Connected App credentials
+
+1. From Setup, go to **App Manager**.
+1. Find the **Agent API Integration** connected app, click the 🔽 dropdown arrow on the right, and then click **View**.
+1. Click **Manage Consumer Details**.
+1. Copy **Consumer Key** and **Consumer Secret**.
+
+### AA.4. Call the Agent API
+
 
 
 
