@@ -98,7 +98,7 @@
 - AA.1. [Create a Connected App](#aa1-create-a-connected-app)
 - AA.2. [Add the Connected App to the agent](#aa2-add-the-connected-app-to-the-agent)
 - AA.3. [Obtain the Connected App credentials](#aa3-obtain-the-connected-app-credentials)
-- AA.4. [Call the Agent API](#aa4-call-the-agent-api)
+- AA.4. [Call the Agent API](#aa4-call-the-agent-api-with-postman)
 
 ### AA.1. Create a Connected App
 
@@ -162,8 +162,16 @@
 1. Click **Manage Consumer Details**.
 1. Copy **Consumer Key** and **Consumer Secret**.
 
-### AA.4. Call the Agent API
+### AA.4. Call the Agent API with Postman
 
-
-
-
+1. [Sign up](https://identity.getpostman.com/signup) for a Postman account
+1. [Fork](https://app.getpostman.com/run-collection/12721794-8612c754-9efc-4ea1-b876-e8f9af0fe09d?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D12721794-8612c754-9efc-4ea1-b876-e8f9af0fe09d%26entityType%3Dcollection%26workspaceId%3D34382471-0c97-40e5-a206-f947271665c4) the Agent API collection.
+1. Select the root of **Agent API** collection and open the **Variables** tab.
+1. Paste the **Consumer Key** and **Consumer Secret** respectively in the `clientId` and `clientSecret` collection variables.
+1. From Setup, go to **My Domain**, and then copy the value of **Current My Domain URL** into the `sfOrgDomain` collection variable.
+1. From Setup, go to **Agents**, select the agent that you want to interact with and and then copy value of the agent ID (a value starting with `0Xx.....`) from the browser URL into the `agentId` collection variable.
+1. Save your collection variables (press `Cmd + S` or `Ctrl + S`).
+1. Open the **Authorization** tab of the Postman collection and click **Get New Access Token** at the bottom of the screen.
+1. Click **Use Token**.
+1. Select the **Start Session** request and click **Send** to open a session.
+1. Send a prompt: select the **Send Message - Streaming** request, modify the body with your prompt and click **Send**.
